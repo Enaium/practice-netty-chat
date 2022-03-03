@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group 'cn.enaium'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":common")
+    implementation 'com.formdev:flatlaf:2.0.1'
+}

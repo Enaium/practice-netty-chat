@@ -1,0 +1,16 @@
+allprojects {
+
+    apply plugin: "java"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'io.netty:netty-all:4.1.73.Final'
+        implementation 'com.google.code.gson:gson:2.9.0'
+        implementation 'com.caucho:hessian:4.0.65'
+    }
+}
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.enaium.chat.server.mapper.GroupMapper">
+    <insert id="insert">
+        insert into `group`(id, name, member)
+                values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+        <choose>
+            <when test="member != null">
+                #{member,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                '[]'
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+    <update id="updateMemberById">
+        update `group`
+        set member=#{member,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="queryByName" resultType="cn.enaium.chat.server.entity.GroupEntity">
+        select *
+        from `group`
+        where name like '%${name}%'
+    </select>
+
+    <select id="getById" resultType="cn.enaium.chat.server.entity.GroupEntity">
+        select *
+        from `group`
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+</mapper>

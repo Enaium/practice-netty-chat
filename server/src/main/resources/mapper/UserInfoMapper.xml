@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.enaium.chat.server.mapper.UserInfoMapper">
+    <insert id="insert" parameterType="cn.enaium.chat.server.entity.UserInfoEntity">
+        insert into user_info (id, nickname, friend, `group`)
+                values (#{id,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR},
+        <choose>
+            <when test="friend != null">
+                #{friend,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                '[]'
+            </otherwise>
+        </choose>
+        ,
+        <choose>
+            <when test="group != null">
+                #{group,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                '[]'
+            </otherwise>
+        </choose>
+        )
+    </insert>
+    <select id="getById" parameterType="java.lang.Long" resultType="cn.enaium.chat.server.entity.UserInfoEntity">
+        select *
+        from user_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <update id="updateFriendById">
+        update user_info
+        set friend=#{friend,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateUsernameById">
+        update user_info
+        set nickname=#{nickname,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryByUsername" resultType="cn.enaium.chat.server.entity.UserInfoEntity">
+        select *
+        from user_info
+        where nickname like '%${nickname}%'
+    </select>
+
+    <update id="updateGroupById">
+        update user_info
+        set `group`=#{group,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

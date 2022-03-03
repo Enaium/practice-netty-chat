@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.enaium.chat.server.mapper.UserMapper">
+    <select id="getAll" resultType="cn.enaium.chat.server.entity.UserEntity">
+        select *
+        from user
+    </select>
+    <select id="getByUsernameAndPassword" resultType="cn.enaium.chat.server.entity.UserEntity">
+        select *
+        from user
+        where username = #{username}
+          and password = #{password}
+    </select>
+    <insert id="insert" parameterType="cn.enaium.chat.server.entity.UserEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into user (id, username, password, create_datetime)
+        values (#{id}, #{username}, #{password}, #{createDatetime})
+    </insert>
+    <select id="getByUsername" resultType="cn.enaium.chat.server.entity.UserEntity">
+        select *
+        from user
+        where username = #{username}
+    </select>
+
+    <select id="getById" parameterType="java.lang.Long" resultType="cn.enaium.chat.server.entity.UserEntity">
+        select *
+        from user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+</mapper>
